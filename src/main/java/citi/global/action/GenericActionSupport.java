@@ -1,8 +1,8 @@
 package citi.global.action;
 
-import app.common.Constant;
-import app.util.DateJsonValueProcessorUtil;
-import app.util.MD5;
+import citi.global.Constant;
+import citi.util.DateJsonValueProcessorUtil;
+import citi.util.MD5;
 import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionSupport;
 import net.sf.json.JSONArray;
@@ -45,18 +45,15 @@ public class GenericActionSupport extends ActionSupport implements SessionAware,
     //返回到前台的JSON字符串
     public String jsonString;
 
-    @Override
     public void setServletRequest(HttpServletRequest httpServletRequest) {
         mServletRequest = httpServletRequest;
         application = httpServletRequest.getSession().getServletContext();
     }
 
-    @Override
     public void setServletResponse(HttpServletResponse httpServletResponse) {
         mServletResponse = httpServletResponse;
     }
 
-    @Override
     public void setSession(Map<String, Object> stringObjectMap) {
         mSessionMap = stringObjectMap;
     }
