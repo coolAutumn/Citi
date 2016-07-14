@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+
+<!--这个是全局struts配置文件-->
+<!--主要用来配置全局拦截器,全局的action结果映射-->
+<struts>
+    <package name="citi" extends="struts-default">
+        <interceptors>
+            <interceptor name="" class=""
+        </interceptors>
+    </package>
+</struts>
