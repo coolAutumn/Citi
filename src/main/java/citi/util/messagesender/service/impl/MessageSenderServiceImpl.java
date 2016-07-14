@@ -1,16 +1,25 @@
 package citi.util.messagesender.service.impl;
 
 import citi.util.messagesender.service.MessageSenderService;
+import net.sf.json.JSONObject;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Created by coolAutumn on 7/14/16.
  */
+@Component(value = "messageSenderService")
 public class MessageSenderServiceImpl {
+    HttpURLConnection conn;
+    BufferedReader br;
+
 
     //短信内容(最后发送时要转化成utf8urlencode编码)
     String content_part1 = "[skynet]您的注册验证码为";
@@ -47,7 +56,7 @@ public class MessageSenderServiceImpl {
             params = params.replace("%5D","%e3%80%91");
             // 打开连接
             URL url = new URL(urlpath + "?" +params);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
             conn.setDoInput(true);
             conn.setRequestMethod("GET");
@@ -56,21 +65,29 @@ public class MessageSenderServiceImpl {
             conn.connect();
 
             // 读取响应
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf8"));
-            String line ;
+            br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf8"));
+            String result;
             StringBuffer sb = new StringBuffer("");
-            while ( (line = br.readLine()) != null){
-                sb.append(line);
+            while ( (result = br.readLine()) != null){
+                sb.append(result);
             }
+            result = sb.toString();
             br.close();
 
-            // 关闭连接
-            conn.disconnect();
+            //开始解析返回的json对象
+            JSONObject jsonObject = JSONObject.fromObject(result);
 
-            System.out.println(sb.toString());
+            if(jsonObject.get("returnstatus").equals("Success")){
+                return true;
+            }else {
+                return false;
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            // 关闭连接
+            conn.disconnect();
         }
 
         return true;
