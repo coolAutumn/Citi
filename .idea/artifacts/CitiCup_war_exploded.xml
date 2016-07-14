@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="CitiCup:war exploded">
+    <output-path>$PROJECT_DIR$/target/Citi</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="CitiCup" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/Citi/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="CitiCup/web/Web" />
+    </root>
+  </artifact>
+</component>

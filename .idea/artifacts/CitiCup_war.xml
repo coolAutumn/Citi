@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="CitiCup:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="Citi.war">
+      <element id="artifact" artifact-name="CitiCup:war exploded" />
+    </root>
+  </artifact>
+</component>
