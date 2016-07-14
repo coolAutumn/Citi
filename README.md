@@ -1,2 +1,2 @@
 # Citi
-This is a project used for [citi competition].
+This is a project used for **citi competition**.
