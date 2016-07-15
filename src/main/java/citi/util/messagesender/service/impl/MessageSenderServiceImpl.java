@@ -22,7 +22,8 @@ public class MessageSenderServiceImpl {
 
 
     //短信内容(最后发送时要转化成utf8urlencode编码)
-    String content_part1 = "[skynet]您的注册验证码为";
+    String content_part1_type1 = "[skynet]您的注册验证码为";
+    String content_part1_type2 = "[skynet]您找回密码的验证码为";
     String content_part2 = ",有效时间为1小时,请勿告诉他人.";
 
     String urlpath   = "http://apis.baidu.com/kingtto_media/106sms/106sms";        //发送短信的接口
@@ -42,13 +43,13 @@ public class MessageSenderServiceImpl {
         return vc;
     }
 
-    public boolean sendMessage(String phoneNumber) {
+    public boolean sendMessage(String phoneNumber,int type) {
         try {
             String random = getVerificationCode();
 
             // 参数拼装
             String params="mobile=" + phoneNumber.trim() +
-                    "&content=" + encode(content_part1+random+content_part2).trim() +
+                    "&content=" + encode((type == 1 ? content_part1_type1 : content_part2)+random+content_part2).trim() +
                     "&tag=2";
 
             //由于idea下无法输入中文的中括号,所以需要转化一下

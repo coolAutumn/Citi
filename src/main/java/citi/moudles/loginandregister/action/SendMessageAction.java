@@ -12,17 +12,13 @@ import java.io.InputStream;
  * Created by coolAutumn on 7/14/16.
  */
 public class SendMessageAction extends ActionSupport {
+
     public String phoneNumber;
+    public int type = 1;        //所需要发送短信的类型
 
     @Autowired
     public MessageSenderService messageSenderService;   //用来发送短信验证码的服务
 
-    /**
-     * inputStream的返回值
-     * success              发送成功
-     * phone_number_need    未输入phoneNumber
-     * fail                 发送失败
-     */
     public InputStream inputStream;
 
     //生成随机6位验证码
@@ -34,6 +30,12 @@ public class SendMessageAction extends ActionSupport {
         return vc;
     }
 
+    /**
+     * inputStream的返回值
+     * success              发送成功
+     * phone_number_need    未输入phoneNumber
+     * fail                 发送失败
+     */
     @Override
     public String execute() throws Exception {
         if(phoneNumber != null){
@@ -41,7 +43,7 @@ public class SendMessageAction extends ActionSupport {
             String vc = getVerificationCode();
             ActionContext.getContext().getSession().put("vc",vc);
 
-            if(messageSenderService.sendMessage(phoneNumber)){
+            if(messageSenderService.sendMessage(phoneNumber,type)){
                 inputStream = new ByteArrayInputStream("success".getBytes());
             }else{
                 inputStream = new ByteArrayInputStream("fail".getBytes());
@@ -51,4 +53,16 @@ public class SendMessageAction extends ActionSupport {
         }
         return super.execute();
     }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    public void setType(int type) {
+        this.type = type;
+    }
+    public InputStream getInputStream() {
+        return inputStream;
+    }
+
+
 }
