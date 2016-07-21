@@ -3,16 +3,19 @@ package citi.moudles.loginandregister.service.impl;
 import citi.moudles.loginandregister.dao.UserDao;
 import citi.moudles.loginandregister.model.UserinfoEntity;
 import citi.moudles.loginandregister.service.LoginAndRegisterService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by coolAutumn on 7/15/16.
  */
-@Component(value = "loginAndRegisterService")
+@Component
+@Transactional
 public class LoginAndRegisterServiceImpl implements LoginAndRegisterService {
 
+    @Autowired
     public UserDao userDao;
-
 
     public int insertNewUser(String uname, String upass, String phone) {
         return userDao.insertNewUser(uname,upass,phone);
@@ -27,7 +30,7 @@ public class LoginAndRegisterServiceImpl implements LoginAndRegisterService {
     public int login(String uname, String upass) {
         UserinfoEntity userinfoEntity = userDao.selectSpecificUser(uname);
         if(userinfoEntity != null){
-            if(!userinfoEntity.getUpass().equals(upass)){
+            if(!userinfoEntity.getPasswd().equals(upass)){
                 return -2;
             }else{
                 return 1;

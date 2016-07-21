@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import javax.inject.Named;
 import java.util.List;
 
 /**
  * Created by coolAutumn on 7/15/16.
  */
-@Component(value = "userDao")
+@Named("userDao")
 public class UserDao{
     @Autowired
     @Qualifier("sessionFactory")
@@ -19,25 +20,25 @@ public class UserDao{
 
     /**
      * 将新用户插入数据库
-     * @param username
+     * @param uname
      * @param password
      * @param phoneNumber
      * @return 1--插入成功  -1--用户名重复
      */
-    public int insertNewUser(String username,String password,String phoneNumber){
-        if(selectSpecificUser(username) != null){
+    public int insertNewUser(String uname,String password,String phoneNumber){
+        if(selectSpecificUser(phoneNumber) != null){
             return -1;
         }
         UserinfoEntity user = new UserinfoEntity();
-        user.setUname(username);
-        user.setUpass(password);
+        user.setUname(uname);
+        user.setPasswd(password);
         user.setPhone(phoneNumber);
         sessionFactory.getCurrentSession().save(user);
         return 1;
     }
 
-    public UserinfoEntity selectSpecificUser(String username){
-        List<UserinfoEntity> list = sessionFactory.getCurrentSession().createSQLQuery("SELECT * FROM userinfo WHERE uname="+username)
+    public UserinfoEntity selectSpecificUser(String phoneNumber){
+        List<UserinfoEntity> list = sessionFactory.getCurrentSession().createSQLQuery("SELECT * FROM userinfo WHERE phone="+phoneNumber)
                 .addEntity(UserinfoEntity.class).list();
         if(list.size() == 0){
             return null;

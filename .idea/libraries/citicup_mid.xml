@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="citicup_mid">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/lib/lib/citicup_mid.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Downloads/lib/lib/citicup_mid.jar!/" />
+    </SOURCES>
+  </library>
+</component>

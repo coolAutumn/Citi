@@ -18,7 +18,7 @@
         <property name="connection.autoReconnect">true</property>
         <property name="connection.autoReconnectForPools">true</property>
         <property name="connection.is-connection-validation-required">true</property>
-        <property name="connection.url">jdbc:mysql://114.215.83.57:3306/citi</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/citi</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <mapping class="citi.moudles.loginandregister.model.UserinfoEntity"/>
         <!-- DB schema will be updated if needed -->

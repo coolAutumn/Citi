@@ -1,9 +1,11 @@
 package citi.moudles.loginandregister.action;
 
 import citi.util.messagesender.service.MessageSenderService;
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -11,7 +13,8 @@ import java.io.InputStream;
 /**
  * Created by coolAutumn on 7/14/16.
  */
-public class SendMessageAction extends ActionSupport {
+@Component
+public class SendMessageAction implements Action {
 
     public String phoneNumber;
     public int type = 1;        //所需要发送短信的类型
@@ -36,8 +39,7 @@ public class SendMessageAction extends ActionSupport {
      * phone_number_need    未输入phoneNumber
      * fail                 发送失败
      */
-    @Override
-    public String execute() throws Exception {
+    public String send() throws Exception {
         if(phoneNumber != null){
             //首先获得6位验证码并存储到session中
             String vc = getVerificationCode();
@@ -51,7 +53,7 @@ public class SendMessageAction extends ActionSupport {
         }else{
             inputStream = new ByteArrayInputStream("phone_number_need".getBytes());
         }
-        return super.execute();
+        return SUCCESS;
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -63,6 +65,11 @@ public class SendMessageAction extends ActionSupport {
     public InputStream getInputStream() {
         return inputStream;
     }
+    public void setInputStream(InputStream inputStream) {
+        this.inputStream = inputStream;
+    }
 
-
+    public String execute() throws Exception {
+        return null;
+    }
 }

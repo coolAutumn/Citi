@@ -5,19 +5,26 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-    <package name="loginandregister" extends="citi">
-        <action name="sendmessage">
-            <result type="stream">
-                <param name="contentType">text/html</param>
-                <param name="inputName">inputStream</param>
-            </result>
-        </action>
-        <action name="register">
+    <package name="loginandregister"  extends="citi">
+        <action name="sendmessage" class="citi.moudles.loginandregister.action.SendMessageAction" method="send">
             <result type="stream">
                 <param name="contentType">text/html</param>
                 <param name="inputName">inputStream</param>
             </result>
         </action>
 
+        <action name="register" class="citi.moudles.loginandregister.action.RegisterAction" method="register">
+            <result type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">inputStream</param>
+            </result>
+        </action>
+
+        <action name="login" class="citi.moudles.loginandregister.action.LoginAction" method="login">
+            <result type="stream">
+                <param name="contentType">text/html</param>
+                <param name="inputName">inputStream</param>
+            </result>
+        </action>
     </package>
 </struts>

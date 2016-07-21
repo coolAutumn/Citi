@@ -3,6 +3,7 @@ package citi.util.messagesender.service.impl;
 import citi.util.messagesender.service.MessageSenderService;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -15,8 +16,9 @@ import java.util.Scanner;
 /**
  * Created by coolAutumn on 7/14/16.
  */
-@Component(value = "messageSenderService")
-public class MessageSenderServiceImpl {
+@Component
+@Transactional
+public class MessageSenderServiceImpl implements MessageSenderService{
     HttpURLConnection conn;
     BufferedReader br;
 

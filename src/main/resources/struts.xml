@@ -8,9 +8,33 @@
 <!--这个是全局struts配置文件-->
 <!--主要用来配置全局拦截器,全局的action结果映射-->
 <struts>
+    <!--（默认false）设置是否总是以自动装配策略创建对象-->
+    <constant name="struts.objectFactory.spring.autoWire.alwaysRespect" value="true" />
+
     <package name="citi" extends="struts-default">
         <interceptors>
-            <interceptor name="" class=""
+            <interceptor name="loginInterceptor" class="citi.global.interceptors.LoginInterceptor">
+
+            </interceptor>
+            <interceptor-stack name="loginInterceptorStack">
+                <interceptor-ref name="loginInterceptor">
+                    <param name="excludeMethods">login,sendmessage</param>
+                </interceptor-ref>
+            </interceptor-stack>
         </interceptors>
+        <default-interceptor-ref name="loginInterceptorStack"/>
+
+
+
+        <!--全局结果集-->
+        <global-results>
+            <result name="loginneed">
+                /nologin.jsp
+            </result>
+        </global-results>
+
+
     </package>
+
+    <include file="struts/struts-loginandregister.xml"/>
 </struts>
