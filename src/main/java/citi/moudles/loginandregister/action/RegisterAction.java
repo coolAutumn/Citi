@@ -4,11 +4,13 @@ import citi.moudles.loginandregister.service.LoginAndRegisterService;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.ServletActionContext;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -36,8 +38,15 @@ public class RegisterAction implements Action {
         httpSession = ActionContext.getContext().getSession();
         inputStream = new ByteArrayInputStream("success".getBytes());
 
+        HttpServletRequest httpServletRequest = ServletActionContext.getRequest();
+
+        username = httpServletRequest.getParameter("username");
+        password = httpServletRequest.getParameter("password");
+        phoneNumber = httpServletRequest.getParameter("phoneNumber");
+        vc = httpServletRequest.getParameter("vc");
+
         if(!paramNullCheck()){
-            inputStream = new ByteArrayInputStream("paramlack".getBytes());
+            inputStream = new ByteArrayInputStream("paramslack".getBytes());
             return SUCCESS;
         }
 

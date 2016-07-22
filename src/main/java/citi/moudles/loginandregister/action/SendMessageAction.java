@@ -4,9 +4,11 @@ import citi.util.messagesender.service.MessageSenderService;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
@@ -40,6 +42,9 @@ public class SendMessageAction implements Action {
      * fail                 发送失败
      */
     public String send() throws Exception {
+        HttpServletRequest httpServletRequest = ServletActionContext.getRequest();
+
+        phoneNumber = httpServletRequest.getParameter("phoneNumber");
         if(phoneNumber != null){
             //首先获得6位验证码并存储到session中
             String vc = getVerificationCode();

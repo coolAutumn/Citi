@@ -14,6 +14,7 @@ import java.util.List;
  */
 @Named("userDao")
 public class UserDao{
+
     @Autowired
     @Qualifier("sessionFactory")
     SessionFactory sessionFactory;
@@ -38,12 +39,16 @@ public class UserDao{
     }
 
     public UserinfoEntity selectSpecificUser(String phoneNumber){
-        List<UserinfoEntity> list = sessionFactory.getCurrentSession().createSQLQuery("SELECT * FROM userinfo WHERE phone="+phoneNumber)
+        List<UserinfoEntity> list = sessionFactory.getCurrentSession().createSQLQuery("SELECT * FROM userinfo WHERE phone LIKE '"+phoneNumber+"';")
                 .addEntity(UserinfoEntity.class).list();
         if(list.size() == 0){
             return null;
         }else{
             return list.get(0);
         }
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 }
