@@ -43,4 +43,8 @@ public class LoginAndRegisterServiceImpl implements LoginAndRegisterService {
         this.userDao = userDao;
     }
 
+    public int updatePassword(String phoneNumber, String newPass) {
+        userDao.updatePassword(phoneNumber,newPass);
+        return 1;
+    }
 }

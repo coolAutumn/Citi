@@ -1,6 +1,7 @@
 package citi.util.messagesender.service.impl;
 
 import citi.util.messagesender.service.MessageSenderService;
+import com.opensymphony.xwork2.ActionContext;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,10 +10,6 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-
 /**
  * Created by coolAutumn on 7/14/16.
  */
@@ -45,13 +42,13 @@ public class MessageSenderServiceImpl implements MessageSenderService{
         return vc;
     }
 
-    public boolean sendMessage(String phoneNumber,int type) {
+    public boolean sendMessage(String phoneNumber,String type) {
         try {
             String random = getVerificationCode();
 
             // 参数拼装
             String params="mobile=" + phoneNumber.trim() +
-                    "&content=" + encode((type == 1 ? content_part1_type1 : content_part2)+random+content_part2).trim() +
+                    "&content=" + encode((type.equals("1") ? content_part1_type1 : content_part2)+random+content_part2).trim() +
                     "&tag=2";
 
             //由于idea下无法输入中文的中括号,所以需要转化一下
@@ -81,11 +78,12 @@ public class MessageSenderServiceImpl implements MessageSenderService{
             JSONObject jsonObject = JSONObject.fromObject(result);
 
             if(jsonObject.get("returnstatus").equals("Success")){
+                ActionContext.getContext().getSession().put("vc",random);
+                System.out.println(random);
                 return true;
             }else {
                 return false;
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }finally {

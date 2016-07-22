@@ -51,4 +51,8 @@ public class UserDao{
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
+
+    public void updatePassword(String phoneNumber,String newPass){
+        sessionFactory.getCurrentSession().createSQLQuery("UPDATE userinfo SET passwd='"+newPass+"' WHERE phone='"+phoneNumber+"';").executeUpdate();
+    }
 }

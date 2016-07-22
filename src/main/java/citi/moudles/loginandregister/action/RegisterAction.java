@@ -50,14 +50,14 @@ public class RegisterAction implements Action {
             return SUCCESS;
         }
 
+        System.out.println(httpSession.get("vc")+","+vc);
+
         if(httpSession.get("vc").equals(vc)){
             int result = loginAndRegisterService.insertNewUser(username,password,phoneNumber);
             if(result == -1){
                 inputStream = new ByteArrayInputStream("duplicate".getBytes());
             }else if(result != 1){
                 inputStream = new ByteArrayInputStream("registerfail".getBytes());
-            }else{
-                inputStream = new ByteArrayInputStream("fail".getBytes());
             }
         }else{
             inputStream = new ByteArrayInputStream("wrongvc".getBytes());

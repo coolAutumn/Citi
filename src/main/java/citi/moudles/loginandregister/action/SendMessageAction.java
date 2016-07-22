@@ -1,5 +1,6 @@
 package citi.moudles.loginandregister.action;
 
+import citi.moudles.loginandregister.dao.UserDao;
 import citi.util.messagesender.service.MessageSenderService;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
@@ -19,21 +20,19 @@ import java.io.InputStream;
 public class SendMessageAction implements Action {
 
     public String phoneNumber;
-    public int type = 1;        //所需要发送短信的类型
+    public String type = null;        //所需要发送短信的类型
 
     @Autowired
     public MessageSenderService messageSenderService;   //用来发送短信验证码的服务
 
-    public InputStream inputStream;
+    @Autowired
+    public UserDao userDao;
 
-    //生成随机6位验证码
-    private String getVerificationCode(){
-        String vc = "";
-        for(int i=0;i<6;i++){
-            vc += (int) (Math.random() * 10);
-        }
-        return vc;
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
+
+    public InputStream inputStream;
 
     /**
      * inputStream的返回值
@@ -45,10 +44,15 @@ public class SendMessageAction implements Action {
         HttpServletRequest httpServletRequest = ServletActionContext.getRequest();
 
         phoneNumber = httpServletRequest.getParameter("phoneNumber");
-        if(phoneNumber != null){
-            //首先获得6位验证码并存储到session中
-            String vc = getVerificationCode();
-            ActionContext.getContext().getSession().put("vc",vc);
+        type        = httpServletRequest.getParameter("type");
+        //判断是否已存在用户
+        if(userDao.selectSpecificUser(phoneNumber) != null){
+            inputStream = new ByteArrayInputStream("duplicate".getBytes());
+            return SUCCESS;
+        }
+
+
+        if(phoneNumber != null || type != null){
 
             if(messageSenderService.sendMessage(phoneNumber,type)){
                 inputStream = new ByteArrayInputStream("success".getBytes());
@@ -56,7 +60,7 @@ public class SendMessageAction implements Action {
                 inputStream = new ByteArrayInputStream("fail".getBytes());
             }
         }else{
-            inputStream = new ByteArrayInputStream("phone_number_need".getBytes());
+            inputStream = new ByteArrayInputStream("paramslack".getBytes());
         }
         return SUCCESS;
     }
@@ -64,14 +68,15 @@ public class SendMessageAction implements Action {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    public void setType(int type) {
-        this.type = type;
-    }
     public InputStream getInputStream() {
         return inputStream;
     }
     public void setInputStream(InputStream inputStream) {
         this.inputStream = inputStream;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String execute() throws Exception {

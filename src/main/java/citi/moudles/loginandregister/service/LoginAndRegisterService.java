@@ -9,4 +9,5 @@ import org.springframework.transaction.annotation.Transactional;
 public interface LoginAndRegisterService{
     public int insertNewUser(String uname,String upass,String phone);
     public int login(String uname,String upass);
+    public int updatePassword(String phoneNumber,String newPass);
 }
