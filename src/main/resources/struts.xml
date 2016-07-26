@@ -18,7 +18,7 @@
             </interceptor>
             <interceptor-stack name="loginInterceptorStack">
                 <interceptor-ref name="loginInterceptor">
-                    <param name="excludeMethods">send,login,register</param>
+                    <param name="excludeMethods">send,login,register,updatePass</param>
                 </interceptor-ref>
             </interceptor-stack>
         </interceptors>

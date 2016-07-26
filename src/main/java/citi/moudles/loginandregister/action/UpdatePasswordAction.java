@@ -28,13 +28,18 @@ public class UpdatePasswordAction implements Action{
         phoneNumber = httpServletRequest.getParameter("phoneNumber");
         newPassword = httpServletRequest.getParameter("newPassword");
         vc = httpServletRequest.getParameter("vc");
-        String vc1 = (String)ActionContext.getContext().getSession().get("vc");
+        String vc1 = (String)ActionContext.getContext().getSession().get("vc_2");
+        String phoneNumber_2 = (String)ActionContext.getContext().getSession().get("phoneNumber_2");
 
-        if(vc.equals(vc1)){
+        if(phoneNumber == null || newPassword == null || vc == null){
+            inputStream = new ByteArrayInputStream("paramslack".getBytes());
+            return SUCCESS;
+        }
+        if(vc.equals(vc1) && phoneNumber_2.equals(phoneNumber)){
             loginAndRegisterService.updatePassword(phoneNumber,newPassword);
             inputStream = new ByteArrayInputStream("success".getBytes());
         }else{
-            inputStream = new ByteArrayInputStream("wrongvc".getBytes());
+            inputStream = new ByteArrayInputStream("wrongvcorphone".getBytes());
         }
 
         return SUCCESS;

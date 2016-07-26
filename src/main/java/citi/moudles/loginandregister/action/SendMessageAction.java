@@ -46,7 +46,7 @@ public class SendMessageAction implements Action {
         phoneNumber = httpServletRequest.getParameter("phoneNumber");
         type        = httpServletRequest.getParameter("type");
         //判断是否已存在用户
-        if(userDao.selectSpecificUser(phoneNumber) != null){
+        if(!type.equals("2") && userDao.selectSpecificUser(phoneNumber) != null){
             inputStream = new ByteArrayInputStream("duplicate".getBytes());
             return SUCCESS;
         }

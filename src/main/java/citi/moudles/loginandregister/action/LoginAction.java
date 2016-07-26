@@ -40,8 +40,9 @@ public class LoginAction extends ActionSupport {
             String result = loginAndRegisterService.login(username,password);
 
             if(result.contains("1_")){
+                System.out.println(new String(result.substring(2).getBytes(),"utf8").toString());
                 ActionContext.getContext().getSession().put("login","hasLogin");
-                inputStream = new ByteArrayInputStream(("success_"+result.substring(2)).getBytes());
+                inputStream = new ByteArrayInputStream(("success_"+new String(result.substring(2).getBytes(),"utf8")).getBytes());
             }else if(result.equals("-1")){
                 inputStream = new ByteArrayInputStream("wrongphonenumber".getBytes());
             }else if(result.equals("-2")){

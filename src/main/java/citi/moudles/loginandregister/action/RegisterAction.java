@@ -50,9 +50,9 @@ public class RegisterAction implements Action {
             return SUCCESS;
         }
 
-        System.out.println(httpSession.get("vc")+","+vc);
+        System.out.println(httpSession.get("vc_1")+","+vc);
 
-        if(httpSession.get("vc").equals(vc)){
+        if(httpSession.get("vc_1").equals(vc) && httpSession.get("phoneNumber_1").equals(phoneNumber)){
             int result = loginAndRegisterService.insertNewUser(username,password,phoneNumber);
             if(result == -1){
                 inputStream = new ByteArrayInputStream("duplicate".getBytes());
@@ -60,7 +60,7 @@ public class RegisterAction implements Action {
                 inputStream = new ByteArrayInputStream("registerfail".getBytes());
             }
         }else{
-            inputStream = new ByteArrayInputStream("wrongvc".getBytes());
+            inputStream = new ByteArrayInputStream("wrongvcorphone".getBytes());
         }
 
         return SUCCESS;

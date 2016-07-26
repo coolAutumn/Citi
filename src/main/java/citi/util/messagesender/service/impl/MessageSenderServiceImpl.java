@@ -48,7 +48,7 @@ public class MessageSenderServiceImpl implements MessageSenderService{
 
             // 参数拼装
             String params="mobile=" + phoneNumber.trim() +
-                    "&content=" + encode((type.equals("1") ? content_part1_type1 : content_part2)+random+content_part2).trim() +
+                    "&content=" + encode((type.equals("1") ? content_part1_type1 : content_part1_type2)+random+content_part2).trim() +
                     "&tag=2";
 
             //由于idea下无法输入中文的中括号,所以需要转化一下
@@ -78,7 +78,8 @@ public class MessageSenderServiceImpl implements MessageSenderService{
             JSONObject jsonObject = JSONObject.fromObject(result);
 
             if(jsonObject.get("returnstatus").equals("Success")){
-                ActionContext.getContext().getSession().put("vc",random);
+                ActionContext.getContext().getSession().put((type.equals("1") ? "vc_1" : "vc_2") , random);
+                ActionContext.getContext().getSession().put((type.equals("1") ? "phoneNumber_1" : "phoneNumber_2") , phoneNumber);
                 System.out.println(random);
                 return true;
             }else {
