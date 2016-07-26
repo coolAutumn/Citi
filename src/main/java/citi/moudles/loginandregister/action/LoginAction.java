@@ -37,14 +37,14 @@ public class LoginAction extends ActionSupport {
         if(username == null || password == null){
             inputStream = new ByteArrayInputStream("paramslack".getBytes());
         }else{
-            int result = loginAndRegisterService.login(username,password);
+            String result = loginAndRegisterService.login(username,password);
 
-            if(result == 1){
+            if(result.contains("1_")){
                 ActionContext.getContext().getSession().put("login","hasLogin");
-                inputStream = new ByteArrayInputStream("success".getBytes());
-            }else if(result == -1){
+                inputStream = new ByteArrayInputStream(("success_"+result.substring(2)).getBytes());
+            }else if(result.equals("-1")){
                 inputStream = new ByteArrayInputStream("wrongphonenumber".getBytes());
-            }else if(result == -2){
+            }else if(result.equals("-2")){
                 inputStream = new ByteArrayInputStream("wrongpass".getBytes());
             }else{
                 inputStream = new ByteArrayInputStream("fail".getBytes());
