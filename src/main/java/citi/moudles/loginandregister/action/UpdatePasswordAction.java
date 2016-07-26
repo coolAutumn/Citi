@@ -1,5 +1,6 @@
 package citi.moudles.loginandregister.action;
 
+import citi.moudles.loginandregister.dao.UserDao;
 import citi.moudles.loginandregister.service.LoginAndRegisterService;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
@@ -23,6 +24,9 @@ public class UpdatePasswordAction implements Action{
     @Autowired
     public LoginAndRegisterService loginAndRegisterService;
 
+    @Autowired
+    public UserDao userDao;
+
     public String updatePass(){
         HttpServletRequest httpServletRequest = ServletActionContext.getRequest();
         phoneNumber = httpServletRequest.getParameter("phoneNumber");
@@ -33,6 +37,12 @@ public class UpdatePasswordAction implements Action{
 
         if(phoneNumber == null || newPassword == null || vc == null){
             inputStream = new ByteArrayInputStream("paramslack".getBytes());
+            return SUCCESS;
+        }
+
+        //先判断该号码是否已经注册
+        if(userDao.selectSpecificUser(phoneNumber) == null){
+            inputStream = new ByteArrayInputStream("notregister".getBytes());
             return SUCCESS;
         }
         if(vc.equals(vc1) && phoneNumber_2.equals(phoneNumber)){
