@@ -18,7 +18,7 @@
             </interceptor>
             <interceptor-stack name="loginInterceptorStack">
                 <interceptor-ref name="loginInterceptor">
-                    <param name="excludeMethods">send,login,register,updatePass</param>
+                    <param name="excludeMethods">send,login,register,updatePass,execute</param>
                 </interceptor-ref>
             </interceptor-stack>
         </interceptors>
@@ -36,4 +36,5 @@
     </package>
 
     <include file="struts/struts-loginandregister.xml"/>
+    <include file="struts/struts-codeservice.xml"/>
 </struts>

@@ -18,9 +18,8 @@ import org.jsoup.select.Elements;
 
 import Stock.StockInfo;
 import dbOp.DBConnection;
-import web.CodeList;
 
-public class UpdateDailyInfo implements Runnable{
+public class UpdateDailyInfo{
 	
 	final String sinaAPI="http://hq.sinajs.cn/list=";
 	final String turnOverAPI = 
@@ -38,7 +37,7 @@ public class UpdateDailyInfo implements Runnable{
 		this.stockInfos=stockInfos;
 	}
 
-	public String getTurnOver(String code){
+	private String getTurnOver(String code){
 		String url = turnOverAPI + code;
 		Document doc;
 		try {
@@ -50,11 +49,10 @@ public class UpdateDailyInfo implements Runnable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
-		}
-		
+		}		
 	}
 	
-	public boolean getInfo(String code) {
+	private boolean getInfo(String code) {
 		try {
 			URL url=new URL(sinaAPI+(code.startsWith("0")?"sz":"sh")+code);
 			HttpURLConnection conn=(HttpURLConnection) url.openConnection();
@@ -84,37 +82,45 @@ public class UpdateDailyInfo implements Runnable{
 		}
 		return true;
 	}
+	
+	private boolean infoDAO(String code) {
+		try{
+			
+			DBConnection dbConnection=new DBConnection();
+			Connection connection = dbConnection.getCon();
+			Statement statement = connection.createStatement();
+			String sqlSelect="select date from finance where code='"+code+"' and date='"+date+"';";
+			ResultSet resultSet=statement.executeQuery(sqlSelect);
+			if (resultSet.next()){
+				System.out.println("Info: "+date+" "+code+":already updated");
+			}
+			else{
+				
+				double change=(todayClose-yesClose)/yesClose*100;
+				
+				String sqlInsert="insert into finance values('"+date+"',"+todayOpen+","+todayMax+","+todayMin+","+todayClose+","+change+","+amount+",'"+code+"',null,null,"+turnOver+");";
+				//System.out.println(sqlInsert);
+				statement.executeUpdate(sqlInsert);
+				
+				System.out.println("Info: "+date+" "+code+":updated successfully");
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}	
+		return true;
+	}
 
-	public void run() {
+	public void run() {			
 		for (StockInfo stockInfo : stockInfos) {
 			String code=stockInfo.getCode();
 			while (!getInfo(code)){}			
 			String turnOverString;
 			while ((turnOverString=getTurnOver(code))==null){}
-			try{
-				turnOver=Double.parseDouble(turnOverString);
-				DBConnection dbConnection=new DBConnection();
-				Connection connection = dbConnection.getCon();
-				Statement statement = connection.createStatement();
-				String sqlSelect="select date from finance where code='"+code+"' and date='"+date+"';";
-				ResultSet resultSet=statement.executeQuery(sqlSelect);
-				if (resultSet.next()){
-					System.out.println("Info: "+date+" "+code+":already updated");
-				}
-				else{
-					
-					double change=(todayClose-yesClose)/yesClose*100;
-					
-					String sqlInsert="insert into finance values('"+date+"',"+todayOpen+","+todayMax+","+todayMin+","+todayClose+","+change+","+amount+",'"+code+"',null,null,"+turnOver+");";
-					//System.out.println(sqlInsert);
-					statement.executeUpdate(sqlInsert);
-					
-					System.out.println("Info: "+date+" "+code+":updated successfully");
-				}
-			}
-			catch(Exception e){
-				e.printStackTrace();
-			}				
+			turnOver=Double.parseDouble(turnOverString);
+			while (!infoDAO(code)){}
+						
 		}
 		System.out.println("Info: update finished");
 	}

@@ -22,7 +22,7 @@
     <hibernate.version>4.2.5.Final</hibernate.version>
     <proxool.version>0.9.1</proxool.version>
     <junit.version>4.4</junit.version>
-    <struts2.version>2.3.15.3</struts2.version>
+    <struts2.version>2.5.2</struts2.version>
     <slf4j.version>1.7.5</slf4j.version>
     <c3p0.version>0.9.1.2</c3p0.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -205,8 +205,19 @@
       <version>1.8.3</version>
     </dependency>
 
+    <!--添加本地jar包-->
+    <dependency>
+      <groupId>src.webapp</groupId>
+      <artifactId>WEB-INF</artifactId>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/citicup_mid.jar</systemPath>
+      <version>1.0</version>
+    </dependency>
 
   </dependencies>
+
+
+
   <build>
     <finalName>Citi</finalName>
   </build>

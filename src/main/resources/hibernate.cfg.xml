@@ -21,6 +21,10 @@
         <property name="connection.url">jdbc:mysql://114.215.83.57:3306/citi</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <mapping class="citi.moudles.loginandregister.model.UserinfoEntity"/>
+        <mapping class="citi.moudles.codeservice.model.CompanyEntity"/>
+        <mapping class="citi.moudles.codeservice.model.AnnouncementEntity"/>
+        <mapping class="citi.moudles.codeservice.model.FinanceEntity"/>
+        <mapping class="citi.moudles.codeservice.model.NewsEntity"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>

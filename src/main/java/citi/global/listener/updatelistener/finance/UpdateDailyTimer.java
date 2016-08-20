@@ -52,10 +52,9 @@ public class UpdateDailyTimer implements Runnable{
 		ArrayList<StockInfo> stockInfos=codeList.init();
 		System.out.println("Timer: got code list");
 		
-		Thread updateDailyInfo=new Thread(new UpdateDailyInfo(stockInfos));
-		updateDailyInfo.start();
-		Thread updateDailyNews=new Thread(new UpdateDailyNews(stockInfos));
-		updateDailyNews.start();
+		Thread updateDailyAction=new Thread(new UpdateDailyAction(stockInfos));
+		updateDailyAction.start();
+
 	}	
 	
 	public static void main(String[] args) {
@@ -63,9 +62,10 @@ public class UpdateDailyTimer implements Runnable{
 		thread.start();
 	}
 
-	public void run() {	
+	public void run() {
 		try{
-			int now=getNow();
+			int now;
+			while ((now=getNow())<0){}
 			Date date=new Date();
 			Calendar calendar=Calendar.getInstance();
 			calendar.setTime(date);
