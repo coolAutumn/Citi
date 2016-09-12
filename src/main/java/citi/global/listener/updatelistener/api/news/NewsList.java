@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class NewsList
  */
-@WebServlet("/newslist")
 public class NewsList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,12 +33,12 @@ public class NewsList extends HttpServlet {
 		
 		String code=request.getParameter("code");
 		String dayString=request.getParameter("day");
-		web.NewsList newsList;
+		citi.util.cmk.web.NewsList newsList;
 		if (code==null){
 			return;
 		}
 		if (dayString==null){
-			newsList=new web.NewsList(code);
+			newsList=new citi.util.cmk.web.NewsList(code);
 		}
 		else{
 			int day;
@@ -49,7 +48,7 @@ public class NewsList extends HttpServlet {
 			catch(Exception e){
 				return;
 			}
-			newsList=new web.NewsList(code, day);
+			newsList=new citi.util.cmk.web.NewsList(code, day);
 		}
 		
 		out.println(newsList.toJson());

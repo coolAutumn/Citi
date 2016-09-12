@@ -14,7 +14,7 @@
     <commons-beanutils.version>1.8.3</commons-beanutils.version>
     <javax.servlet.version>3.1.0</javax.servlet.version>
     <jstl.version>1.2</jstl.version>
-    <mysql-connector-java.version>5.1.26</mysql-connector-java.version>
+    <mysql-connector-java.version>5.1.38</mysql-connector-java.version>
     <alibaba.fastjson.version>1.1.37</alibaba.fastjson.version>
     <aspectj.aspectjweaver.version>1.7.4</aspectj.aspectjweaver.version>
     <spring.version>3.2.2.RELEASE</spring.version>
@@ -22,7 +22,7 @@
     <hibernate.version>4.2.5.Final</hibernate.version>
     <proxool.version>0.9.1</proxool.version>
     <junit.version>4.4</junit.version>
-    <struts2.version>2.5.2</struts2.version>
+    <struts2.version>2.3.24</struts2.version>
     <slf4j.version>1.7.5</slf4j.version>
     <c3p0.version>0.9.1.2</c3p0.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -192,11 +192,6 @@
       <classifier>jdk15</classifier>
     </dependency>
 
-    <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.2</version>
-    </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
     <dependency>
@@ -204,16 +199,77 @@
       <artifactId>jsoup</artifactId>
       <version>1.8.3</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/net.sourceforge.htmlunit/htmlunit -->
+    <dependency>
+      <groupId>net.sourceforge.htmlunit</groupId>
+      <artifactId>htmlunit</artifactId>
+      <version>2.23</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/net.sourceforge.htmlunit/htmlunit-core-js -->
+    <dependency>
+      <groupId>net.sourceforge.htmlunit</groupId>
+      <artifactId>htmlunit-core-js</artifactId>
+      <version>2.23</version>
+    </dependency>
+
+
+
 
     <!--添加本地jar包-->
     <dependency>
-      <groupId>src.webapp</groupId>
+      <groupId>local.jar1</groupId>
       <artifactId>WEB-INF</artifactId>
       <scope>system</scope>
-      <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/citicup_mid.jar</systemPath>
+      <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/forecast.jar</systemPath>
       <version>1.0</version>
     </dependency>
-
+    <dependency>
+      <groupId>local.jar4</groupId>
+      <artifactId>WEB-INF</artifactId>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/Huaqi.jar</systemPath>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>local.jar5</groupId>
+      <artifactId>WEB-INF</artifactId>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/javabuilder.jar</systemPath>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>local.jar6</groupId>
+      <artifactId>WEB-INF</artifactId>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/pinyin4j-2.5.0.jar</systemPath>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>local.jar7</groupId>
+      <artifactId>WEB-INF</artifactId>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/httpclient-4.5.2.jar</systemPath>
+      <version>1.0</version>
+    </dependency><dependency>
+    <groupId>local.jar8</groupId>
+    <artifactId>WEB-INF</artifactId>
+    <scope>system</scope>
+    <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/httpcore-4.4.4.jar</systemPath>
+    <version>1.0</version>
+  </dependency><dependency>
+    <groupId>local.jar9</groupId>
+    <artifactId>WEB-INF</artifactId>
+    <scope>system</scope>
+    <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/httpmime-4.5.2.jar</systemPath>
+    <version>1.0</version>
+  </dependency>
+  <!--<dependency>-->
+  <!--<groupId>local.citi_mid</groupId>-->
+  <!--<artifactId>WEB-INF</artifactId>-->
+  <!--<scope>system</scope>-->
+  <!--<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/citicup_mid.jar</systemPath>-->
+  <!--<version>1.0</version>-->
+<!--</dependency>-->
   </dependencies>
 
 

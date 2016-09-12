@@ -155,6 +155,7 @@ public class GetFrequencyActionAction implements Action {
         step  = Double.parseDouble(ServletActionContext.getRequest().getParameter("step"));
 
         inputStream = new ByteArrayInputStream(toJson().getBytes());
+        ServletActionContext.getResponse().addHeader("Access-Control-Allow-Origin","*");
         return SUCCESS;
     }
 

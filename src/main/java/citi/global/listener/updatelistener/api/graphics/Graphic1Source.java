@@ -9,12 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import web.*;
+import citi.util.cmk.web.*;
 
 /**
  * Servlet implementation class Graphic1Source
  */
-@WebServlet("/graphic1source")
 public class Graphic1Source extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

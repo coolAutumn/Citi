@@ -1,6 +1,6 @@
 package citi.moudles.codeservice.action;
 
-import Stock.Company;
+import citi.util.cmk.Stock.Company;
 import citi.moudles.codeservice.model.CompanyEntity;
 import citi.moudles.codeservice.service.CodeService;
 import com.opensymphony.xwork2.Action;
@@ -79,6 +79,7 @@ public class GetCompanyDataAction implements Action {
             return SUCCESS;
         }
         inputStream = new ByteArrayInputStream(toJson().getBytes());
+        ServletActionContext.getResponse().addHeader("Access-Control-Allow-Origin","*");
         return SUCCESS;
     }
 

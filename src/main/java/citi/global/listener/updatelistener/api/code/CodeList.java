@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class CodeList
  */
-@WebServlet("/codelist")
 public class CodeList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,8 +30,13 @@ public class CodeList extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=utf8");
 		PrintWriter out=response.getWriter();
-		web.CodeList codeList=new web.CodeList();		
-		String json=codeList.toJson();
+		citi.util.cmk.web.CodeList codeList=new citi.util.cmk.web.CodeList();
+		String json= null;
+		try {
+			json = codeList.toJson();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		out.println(json);
 	}
 

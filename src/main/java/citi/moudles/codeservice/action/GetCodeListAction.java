@@ -1,10 +1,11 @@
 package citi.moudles.codeservice.action;
 
-import FIFO.PinYin;
-import Stock.StockInfo;
+import citi.util.cmk.FIFO.PinYin;
+import citi.util.cmk.Stock.StockInfo;
 import citi.moudles.codeservice.model.CompanyEntity;
 import citi.moudles.codeservice.service.CodeService;
 import com.opensymphony.xwork2.Action;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +35,8 @@ public class GetCodeListAction implements Action{
             for(CompanyEntity companyEntity : result){
                 String code = companyEntity.getCode();
                 String sname = companyEntity.getSname();
-                StockInfo temp = new StockInfo(code, sname);
+                System.out.println(companyEntity.getSname());
+                StockInfo temp = new StockInfo(code, sname, companyEntity.getTrade());
                 arrayList.add(temp);
             }
             Collections.sort(arrayList, new Comparator<StockInfo>() {
@@ -54,11 +56,16 @@ public class GetCodeListAction implements Action{
         init();
         String json = "{\"stocks\":[\n";
         for (StockInfo a : stockInfos) {
-            json += "{\"code\":\"" + a.getCode() + "\""
+            json += "{\"code\":\"" + new String(a.getCode().getBytes(),"utf-8") + "\""
                     + ",\"stockname\":\"" + a.getSname() + "\""
                     + ",\"abb\":\"" + PinYin.converterToFirstSpell(a.getSname()) + "\""
                     + "},\n";
+            for (byte c : a.getSname().getBytes()){
+                System.out.print(c);
+            }
+            System.out.println(a.getSname());
         }
+        System.out.println(json);
         json = json.substring(0, json.length() - 2);
         json += "\n]}";
 
@@ -67,6 +74,7 @@ public class GetCodeListAction implements Action{
 
     public String execute() throws Exception {
         inputStream = new ByteArrayInputStream(toJson().getBytes());
+        ServletActionContext.getResponse().addHeader("Access-Control-Allow-Origin","*");
         return SUCCESS;
     }
 

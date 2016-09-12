@@ -3,7 +3,7 @@ package citi.moudles.codeservice.model;
 import javax.persistence.*;
 
 /**
- * Created by coolAutumn on 7/29/16.
+ * Created by coolAutumn on 9/11/16.
  */
 @Entity
 @Table(name = "company", schema = "citi", catalog = "")
@@ -18,6 +18,8 @@ public class CompanyEntity {
     private String mbussiness;
     private String pname;
     private String link;
+    private Double value;
+    private String type;
 
     @Id
     @Column(name = "code")
@@ -119,6 +121,26 @@ public class CompanyEntity {
         this.link = link;
     }
 
+    @Basic
+    @Column(name = "value")
+    public Double getValue() {
+        return value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
+    @Basic
+    @Column(name = "type")
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -136,6 +158,8 @@ public class CompanyEntity {
         if (mbussiness != null ? !mbussiness.equals(that.mbussiness) : that.mbussiness != null) return false;
         if (pname != null ? !pname.equals(that.pname) : that.pname != null) return false;
         if (link != null ? !link.equals(that.link) : that.link != null) return false;
+        if (value != null ? !value.equals(that.value) : that.value != null) return false;
+        if (type != null ? !type.equals(that.type) : that.type != null) return false;
 
         return true;
     }
@@ -152,6 +176,8 @@ public class CompanyEntity {
         result = 31 * result + (mbussiness != null ? mbussiness.hashCode() : 0);
         result = 31 * result + (pname != null ? pname.hashCode() : 0);
         result = 31 * result + (link != null ? link.hashCode() : 0);
+        result = 31 * result + (value != null ? value.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
     }
 }

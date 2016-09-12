@@ -1,6 +1,6 @@
 package citi.moudles.codeservice.action;
 
-import Stock.Announcement;
+import citi.util.cmk.Stock.Announcement;
 import citi.moudles.codeservice.model.NewsEntity;
 import citi.moudles.codeservice.service.CodeService;
 import com.opensymphony.xwork2.Action;
@@ -89,6 +89,7 @@ public class GetNewsListAction implements Action {
             return SUCCESS;
         }
         inputStream = new ByteArrayInputStream(toJson().getBytes());
+        ServletActionContext.getResponse().addHeader("Access-Control-Allow-Origin","*");
         return SUCCESS;
     }
 

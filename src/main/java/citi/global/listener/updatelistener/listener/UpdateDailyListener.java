@@ -10,7 +10,7 @@ import citi.global.listener.updatelistener.finance.UpdateDailyTimer;
  * Application Lifecycle Listener implementation class UpdateDailyListener
  *
  */
-@WebListener
+
 public class UpdateDailyListener implements ServletContextListener {
 
     /**

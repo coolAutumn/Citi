@@ -1,9 +1,10 @@
 package citi.moudles.codeservice.action;
 
-import Stock.Announcement;
+import citi.util.cmk.Stock.Announcement;
 import citi.moudles.codeservice.model.AnnouncementEntity;
 import citi.moudles.codeservice.service.CodeService;
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionContext;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,6 +38,7 @@ public class GetAnnouncementList implements Action {
             return SUCCESS;
         }
         inputStream = new ByteArrayInputStream(toJson().getBytes());
+        ServletActionContext.getResponse().addHeader("Access-Control-Allow-Origin","*");
         return SUCCESS;
     }
 

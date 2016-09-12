@@ -1,7 +1,7 @@
 package citi.moudles.codeservice.action;
 
 
-import Stock.FinanceOneDay;
+import citi.util.cmk.Stock.FinanceOneDay;
 import citi.moudles.codeservice.model.FinanceEntity;
 import citi.moudles.codeservice.service.CodeService;
 import com.opensymphony.xwork2.Action;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -71,6 +72,7 @@ public class GetStockDataAction implements Action {
             return SUCCESS;
         }
         inputStream = new ByteArrayInputStream(toJson().getBytes());
+        ServletActionContext.getResponse().addHeader("Access-Control-Allow-Origin","*");
         return SUCCESS;
     }
 

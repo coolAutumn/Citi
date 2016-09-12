@@ -9,15 +9,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.StringTokenizer;
 
-import Stock.StockInfo;
-import web.CodeList;
+import citi.util.cmk.Stock.StockInfo;
+import citi.util.cmk.web.CodeList;
 
 public class UpdateDailyTimer implements Runnable{
 	
 	final String api="http://hq.sinajs.cn/list=sh600066";
 	final int getTime=15*3600+30*60;
-	final int closeTime=15*3600;
+	//final int getTime=0;
 	
+	//final int closeTime=15*3600;
+	/*
 	public int getNow() {
 		int time;
 		try {
@@ -46,7 +48,7 @@ public class UpdateDailyTimer implements Runnable{
 		}	
 		return time;		
 	}
-	
+	*/
 	public void updateDaily() {
 		CodeList codeList=new CodeList();
 		ArrayList<StockInfo> stockInfos=codeList.init();
@@ -64,8 +66,8 @@ public class UpdateDailyTimer implements Runnable{
 
 	public void run() {
 		try{
-			int now;
-			while ((now=getNow())<0){}
+			//int now;
+			//while ((now=getNow())<0){}
 			Date date=new Date();
 			Calendar calendar=Calendar.getInstance();
 			calendar.setTime(date);
@@ -77,7 +79,8 @@ public class UpdateDailyTimer implements Runnable{
 			int serverNow=h*3600+m*60+s;
 			//now=serverNow=14*3600+59*60+50;
 			//int getTime=15*3600;
-			if (now>=closeTime){
+			//if (now>=closeTime){
+			if (serverNow>=getTime){
 				updateDaily();					
 				int sleepMS=(24*3600-serverNow+getTime)*1000;
 				System.out.println("Timer: sleep for "+sleepMS+" milliseconds");
