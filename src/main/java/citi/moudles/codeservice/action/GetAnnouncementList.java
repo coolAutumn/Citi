@@ -84,7 +84,7 @@ public class GetAnnouncementList implements Action {
     public String toJson() {
         init();
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String json = "{\"" + code + "\":[\n";
+        String json = "{\"stock\":\"" + code + "\":[\n";
         for (Announcement a : newsArrayList) {
             json += "{\"pubDate\":\"" + format.format(a.getPtime()) + "\"" + ",\"title\":\"" + a.getTitle() + "\""
                     + ",\"url\":\"" + a.getUrl() + "\"" + "},\n";

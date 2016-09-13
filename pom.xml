@@ -263,13 +263,13 @@
     <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/httpmime-4.5.2.jar</systemPath>
     <version>1.0</version>
   </dependency>
-  <!--<dependency>-->
-  <!--<groupId>local.citi_mid</groupId>-->
-  <!--<artifactId>WEB-INF</artifactId>-->
-  <!--<scope>system</scope>-->
-  <!--<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/citicup_mid.jar</systemPath>-->
-  <!--<version>1.0</version>-->
-<!--</dependency>-->
+  <dependency>
+  <groupId>local.huaqi_trade</groupId>
+  <artifactId>WEB-INF</artifactId>
+  <scope>system</scope>
+  <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/Huaqi_trade.jar</systemPath>
+  <version>1.0</version>
+</dependency>
   </dependencies>
 
 

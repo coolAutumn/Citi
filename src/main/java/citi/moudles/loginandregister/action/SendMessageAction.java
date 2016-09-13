@@ -62,6 +62,7 @@ public class SendMessageAction implements Action {
         }else{
             inputStream = new ByteArrayInputStream("paramslack".getBytes());
         }
+        ServletActionContext.getResponse().addHeader("Access-Control-Allow-Origin","*");
         return SUCCESS;
     }
 

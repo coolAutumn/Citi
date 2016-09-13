@@ -51,7 +51,7 @@ public class UpdatePasswordAction implements Action{
         }else{
             inputStream = new ByteArrayInputStream("wrongvcorphone".getBytes());
         }
-
+        ServletActionContext.getResponse().addHeader("Access-Control-Allow-Origin","*");
         return SUCCESS;
     }
 

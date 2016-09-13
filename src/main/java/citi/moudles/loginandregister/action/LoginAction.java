@@ -51,6 +51,7 @@ public class LoginAction extends ActionSupport {
                 inputStream = new ByteArrayInputStream("fail".getBytes());
             }
         }
+        ServletActionContext.getResponse().addHeader("Access-Control-Allow-Origin","*");
 
         return SUCCESS;
     }
